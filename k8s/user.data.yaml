@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user.data
+spec:
+  selector:
+    matchLabels:
+      app: user.data
+  template:
+    metadata:
+      labels:
+        app: user.data
+    spec:
+      containers:
+      - name: user.data
+        image: redis
+        ports:
+        - containerPort: 6379
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user.data
+spec:
+  type: ClusterIP
+  selector:
+    app: user.data
+  ports:
+  - name: redis
+    port: 6379
+    targetPort: 6379

@@ -1,34 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jobs.api
+  name: jobs-api
 spec:
   selector:
     matchLabels:
-      app: jobs.api
+      app: jobs-api
   template:
     metadata:
       labels:
-        app: jobs.api
+        app: jobs-api
     spec:
       containers:
-      - name: jobs.api
-        image: pvdbleek/jobs.api
+      - name: jobs-api
+        image: pvdbleek/jobs-api
         ports:
-        - containerPort: 8083
+        - containerPort: 80
         env:
           - name: ConnectionString
-            value: Server=10.0.0.123;User=sa;Password=Wachtwoord123!;Database=dotnetgigs.jobs;
+            value: Server=<db_hosname_here>;User=<db_user_here>;Password=<db_passwd_here>;Database=dotnetgigs.applicants;
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: jobs.api
+  name: jobs-api
 spec:
   type: ClusterIP
   selector:
-    app: jobs.api
+    app: jobs-api
   ports:
   - name: http
     port: 80
-    targetPort: 8083
+    targetPort: 80

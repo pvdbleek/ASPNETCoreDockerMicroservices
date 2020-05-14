@@ -15,7 +15,7 @@ spec:
       - name: rabbitmq
         image: rabbitmq:3-management 
         ports:
-        - containerPort: 15672
+        - containerPort: 5672
 ---
 apiVersion: v1
 kind: Service
@@ -27,5 +27,5 @@ spec:
     app: rabbitmq
   ports:
   - name: rabbitmq
-    port: 15672
-    targetPort: 15672
+    port: 5672
+    targetPort: 5672

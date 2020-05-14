@@ -1,34 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: applicants.api
+  name: applicants-api
 spec:
   selector:
     matchLabels:
-      app: applicants.api
+      app: applicants-api
   template:
     metadata:
       labels:
-        app: applicants.api
+        app: applicants-api
     spec:
       containers:
-      - name: applicants.api
-        image: pvdbleek/applicants.api
+      - name: applicants-api
+        image: pvdbleek/applicants-api
         ports:
-        - containerPort: 8081
+        - containerPort: 80
         env:
           - name: ConnectionString
-            value: Server=10.0.0.123;User=sa;Password=Wachtwoord123!;Database=dotnetgigs.applicants;
+            value: Server=<db_hosname_here>;User=<db_user_here>;Password=<db_passwd_here>;Database=dotnetgigs.applicants;
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: applicants.api
+  name: applicants-api
 spec:
   type: ClusterIP
   selector:
-    app: applicants.api
+    app: applicants-api
   ports:
   - name: http
     port: 80
-    targetPort: 8081
+    targetPort: 80

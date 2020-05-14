@@ -1,34 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: identity.api
+  name: identity-api
 spec:
   selector:
     matchLabels:
-      app: identity.api
+      app: identity-api
   template:
     metadata:
       labels:
-        app: identity.api
+        app: identity-api
     spec:
       containers:
-      - name: identity.api
-        image: pvdbleek/identity.api
+      - name: identity-api
+        image: pvdbleek/identity-api
         ports:
-        - containerPort: 8084
+        - containerPort: 80
         env:
           - name: RedisHost
-            value: user.data:6379
+            value: user-data:6379
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: identity.api
+  name: identity-api
 spec:
   type: ClusterIP
   selector:
-    app: identity.api
+    app: identity-api
   ports:
   - name: http
     port: 80
-    targetPort: 8084
+    targetPort: 80
